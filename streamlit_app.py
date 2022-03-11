@@ -7,8 +7,7 @@ import streamlit as st
 def configuracion():
     st.set_page_config(
      page_title="Data Analysis",
-     page_icon=":pizza:",
-     layout="wide")
+     page_icon=":pizza:")
 
 def menu():
     #funcion principal de visualizacion del programa
