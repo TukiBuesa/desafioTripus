@@ -1,9 +1,7 @@
 import pandas as pd
 import streamlit as st
 
-'''
-# Welcome to Streamlit!
-'''
+
 def configuracion():
     st.set_page_config(
      page_title="Data Analysis",
@@ -33,3 +31,6 @@ def panel1():
     
 configuracion()
 menu()  
+'''
+# Welcome to Streamlit!
+'''
