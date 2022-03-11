@@ -10,7 +10,7 @@ def configuracion():
      page_icon=":pizza:",
      layout="wide")
 
-def menu(df,df_city,df_resort):
+def menu():
     #funcion principal de visualizacion del programa
     #es un select box, para cada elección el el selecbox hay una funcion panel asignada
     #cada panel es un conjunto de graficas distintas, como paginas de una presentación
@@ -32,4 +32,5 @@ def panel1():
     grouped=st.selectbox('columna',['col1','col2'])
     st.write('hola')
     
-   
+configuracion()
+menu()  
