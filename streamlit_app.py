@@ -31,8 +31,8 @@ def menu():
 
 def panel0():
     columna=st.selectbox('columna',['sexo','ccaa','edad'])
-    fig=graph_one_var(columna,data_people=data_people)
-    st.pyplot(fig)
+    graph_one_var(columna,data_people=data_people)
+    
     st.write('hola')
 
 def panel1():
@@ -127,7 +127,6 @@ def graph_one_var(variable,data_people):
     st.pyplot(fig)
     st.write('hey')
     #return plt.gcf().set_size_inches(15, 8)
-    return fig
 
 
 def graph_two_var(var1, var2):
