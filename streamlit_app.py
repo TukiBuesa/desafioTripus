@@ -24,9 +24,9 @@ def menu():
     panel_pos1=st.button('individuales')
     panel_pos2=st.button('groupby')
 
-    if panel_pos==0:
+    if panel_pos=='0':
         panel0()
-    elif panel_pos==1:
+    elif panel_pos=='1':
         panel1()
 
 def panel0():
