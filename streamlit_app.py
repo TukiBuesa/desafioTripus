@@ -31,7 +31,8 @@ def menu():
 
 def panel0():
     columna=st.selectbox('columna',['sexo','ccaa','edad'])
-    graph_one_var(columna)
+    fig=graph_one_var(columna,data_people=data_people)
+    st.pyplot(fig)
     st.write('hola')
 
 def panel1():
@@ -107,7 +108,7 @@ def visualizeME_and_describe_violinbox(dataframe, categ_var, numeric_var, palett
 
 
 
-def graph_one_var(variable):
+def graph_one_var(variable,data_people):
     '''
     ## Función para mostrar gráfico de una sola variable del dataframe
     ### Input(1):
@@ -126,6 +127,7 @@ def graph_one_var(variable):
     st.pyplot(fig)
     st.write('hey')
     #return plt.gcf().set_size_inches(15, 8)
+    return fig
 
 
 def graph_two_var(var1, var2):
