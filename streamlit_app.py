@@ -20,13 +20,13 @@ def menu():
     #funcion principal de visualizacion del programa
     #es un select box, para cada elección el el selecbox hay una funcion panel asignada
     #cada panel es un conjunto de graficas distintas, como paginas de una presentación
-    # panel_pos=st.selectbox('Página',['0','1','2','3','4','5','6','7','8','9'])  
+    panel_pos=st.selectbox('Página',['0','1','2','3','4','5','6','7','8','9'])  
     panel_pos1=st.button('individuales')
     panel_pos2=st.button('groupby')
 
-    if panel_pos1==True:
+    if panel_pos==0:
         panel0()
-    elif panel_pos2==True:
+    elif panel_pos==1:
         panel1()
 
 def panel0():
