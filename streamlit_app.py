@@ -117,13 +117,15 @@ def graph_one_var(variable):
     '''
     st.write('Estoy aqui')
     st.write(data_people)
+    fig=plt.figure(figsize=(15,8))
     if data_people[variable].dtypes == 'int64':
         sns.displot(data_people[variable], binwidth = 3, kde= True)
 
     else:
         sns.catplot(x = variable , data= data_people , kind= 'count')
-        
-    return plt.gcf().set_size_inches(15, 8)
+    st.pyplot(fig)
+    
+    #return plt.gcf().set_size_inches(15, 8)
 
 
 def graph_two_var(var1, var2):
