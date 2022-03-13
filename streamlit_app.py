@@ -115,6 +115,8 @@ def graph_one_var(variable):
     ### Return(1):
         * plot: displot si es numérica y countplot en caso de que sea categórica
     '''
+    st.write('Estoy aqui')
+    st.write(data_people)
     if data_people[variable].dtypes == 'int64':
         sns.displot(data_people[variable], binwidth = 3, kde= True)
 
