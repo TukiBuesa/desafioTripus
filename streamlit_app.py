@@ -124,7 +124,7 @@ def graph_one_var(variable,data_people):
         fig=sns.catplot(x = variable , data= data_people , kind= 'count')
     st.pyplot(fig)
     st.write('hey')
-    #return plt.gcf().set_size_inches(15, 8)
+    
 
 
 def graph_two_var(var1, var2):
@@ -134,6 +134,7 @@ def graph_two_var(var1, var2):
         * var1: `str` variable de tipo 'int64', 'O' o 'bool'
         * var2: `str` variable de tipo 'int64', 'O' o 'bool'
     '''
+    fig=plt.figure()
     if (data_people[var2].dtype == 'int64' or data_people[var1].dtype == 'int64'):
         if data_people[var2].dtype == 'int64':
             micat = var1
@@ -168,7 +169,7 @@ def graph_two_var(var1, var2):
         titulo = micat.upper() + ' VS ' + mibool.upper()
         plt.title(titulo)
         plt.legend(bbox_to_anchor=(1, 1), loc=2) 
-
+    st.pyplot(fig)    
 
 
 
