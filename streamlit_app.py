@@ -169,7 +169,7 @@ def graph_two_var(var1, var2):
         titulo = micat.upper() + ' VS ' + mibool.upper()
         plt.title(titulo)
         plt.legend(bbox_to_anchor=(1, 1), loc=2) 
-    st.pyplot(fig)    
+    st.pyplot(ax)    
 
 
 
