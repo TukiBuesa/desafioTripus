@@ -25,8 +25,11 @@ def panel0():
     st.write('hola')
 
 def panel1():
-    columna=st.selectbox('columna',['col1','col2'])
-    grouped=st.selectbox('columna2',['col1','col2'])
+    col1,col2=st.columns(2)
+    with col1:
+        columna=st.selectbox('columna',['col1','col2'])
+    with col2:    
+        grouped=st.selectbox('columna2',['col1','col2'])
     st.write('hola')
     
 configuracion()
