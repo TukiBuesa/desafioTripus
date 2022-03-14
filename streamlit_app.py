@@ -42,7 +42,7 @@ def panel1(data_people):
         grouped=st.selectbox('columna2',['sexo','ccaa','edad'])
 
     graph_two_var(columna,grouped,data_people=data_people)    
-    st.write('hola')
+    st.dataframe('hola')
 
 
 
@@ -126,7 +126,76 @@ def visualizeME_and_describe_violinbox(dataframe, categ_var, numeric_var, palett
     #plt.show()
     st.write(table)
 
+def better_visualizeME_and_describe_violinbox(dataframe, categ_var, numeric_var, categ_var2= None, palette='tab10'):
+    '''
+    Function that allows to obtain a more complete graph by merging boxplot and violinplot together with a table of descriptive metrics
+    It is high recommendable! to use this type of graph for a categoric variable with 20 unique values maximum.
+    ### Parameters (5):
+        * dataframe: `dataframe`  origin table
+        * categ_var: `str` categoric variable
+        * numeric_var:  `str` numeric variable
+        * categ_var2: `str` by default None, but if pass please a categoric variable
+        * palette:  `str` by default 'tab10', but you can choose your palette
+    '''
+    # Generate ViolinBOX graph
+    fig,ax=plt.subplots()
+    sns.violinplot(x=categ_var, y=numeric_var, data=dataframe, hue = categ_var2, split=True)
+    ax = sns.boxplot(x=categ_var, y=numeric_var, data=dataframe, hue = categ_var2, fliersize=0, color='white')
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=40, ha='right')
+    handles, labels = ax.get_legend_handles_labels()
+    l = plt.legend(handles[0:2], labels[0:2], bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.);
+    titulo= categ_var.upper() + ' VS ' + numeric_var.upper() + ' VS ' + categ_var2.upper()
+    plt.title(titulo, fontsize=15);
+    st.pyplot(fig)
 
+    # Metrics table
+    cabeceras= ['Metrics',]
+    fila1 = ['Upper limit',]
+    fila2 = ['Q3',]
+    fila3 = ['Median',]
+    fila4 = ['Q1',]
+    fila5 = ['Lower limit',] 
+    fila6 = ['Count',] 
+    iqr_ = iqr(dataframe[numeric_var], nan_policy='omit')
+    d = [ fila1, fila2, fila3, fila4, fila5, fila6]
+    if categ_var2 != None:
+        for i in sorted(list(dataframe[categ_var].unique())):
+            for j in sorted(list(dataframe[categ_var2].unique())):
+                nombre= str(i)+  '/' + str(j)
+                cabeceras.append(nombre)
+                mediana = round(float(dataframe[(dataframe[categ_var].isin([i]))& (dataframe[categ_var2].isin([j]))][[numeric_var]].median()), 2)
+                fila3.append(mediana)
+                q1 = round(np.nanpercentile(dataframe[(dataframe[categ_var].isin([i]))& (dataframe[categ_var2].isin([j]))][[numeric_var]], 25), 2)
+                fila4.append(q1)
+                q3 = round(np.nanpercentile(dataframe[(dataframe[categ_var].isin([i]))& (dataframe[categ_var2].isin([j]))][[numeric_var]], 75), 2)
+                fila2.append(q3)
+                th1 = round(q1 - iqr_*1.5, 2)
+                fila5.append(th1)
+                th2 = round(q3 + iqr_*1.5, 2)
+                fila1.append(th2)
+                cantidad = int(dataframe[(dataframe[categ_var].isin([i]))& (dataframe[categ_var2].isin([j]))][[numeric_var]].count())
+                fila6.append(cantidad)
+    else:
+        for i in sorted(list(dataframe[categ_var].unique())):
+                nombre= str(i)
+                cabeceras.append(nombre)
+                mediana = round(float(dataframe[dataframe[categ_var].isin([i])][[numeric_var]].median()), 2)
+                fila3.append(mediana)
+                q1 = round(np.nanpercentile(dataframe[dataframe[categ_var].isin([i])][[numeric_var]], 25), 2)
+                fila4.append(q1)
+                q3 = round(np.nanpercentile(dataframe[dataframe[categ_var].isin([i])][[numeric_var]], 75), 2)
+                fila2.append(q3)
+                th1 = round(q1 - iqr_*1.5, 2)
+                fila5.append(th1)
+                th2 = round(q3 + iqr_*1.5, 2)
+                fila1.append(th2)
+                cantidad = int(dataframe[dataframe[categ_var].isin([i])][[numeric_var]].count())
+                fila6.append(cantidad)
+    table = pd.DataFrame(d, columns=cabeceras)
+    table = table.set_index('Metrics')
+    
+    #plt.show()
+    st.dataframe(table)
 
 
 def graph_one_var(variable,data_people):
@@ -169,7 +238,7 @@ def graph_two_var(var1, var2,data_people):
             else:
                 micat = var2
                 minum = var1
-            visualizeME_and_describe_violinbox(data_people, micat, minum, palette= colors)
+            better_visualizeME_and_describe_violinbox(data_people, micat, minum, palette= colors)
         elif(data_people[var2].dtype == 'O' and data_people[var1].dtype == 'O') or (data_people[var1].dtype == 'O' and data_people[var2].dtype == 'O'):
             if data_people[var1].nunique() <= data_people[var1].nunique():
                 micat1 = var1
@@ -183,6 +252,7 @@ def graph_two_var(var1, var2,data_people):
             ax.fig.subplots_adjust(top=0.8)
             ax.fig.suptitle(titulo)
             ax.set_xticklabels(rotation=40, ha='right')
+            st.pyplot(ax)    
 
         elif data_people[var2].dtype == 'bool' or data_people[var1].dtype == 'bool':
             if data_people[var2].dtype == 'bool':
@@ -196,7 +266,7 @@ def graph_two_var(var1, var2,data_people):
             titulo = micat.upper() + ' VS ' + mibool.upper()
             plt.title(titulo)
             plt.legend(bbox_to_anchor=(1, 1), loc=2) 
-        st.pyplot(ax)    
+            st.pyplot(ax)    
 
 
 
