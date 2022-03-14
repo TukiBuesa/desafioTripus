@@ -259,8 +259,16 @@ def graph_two_var(var1, var2,data_people):
             else:
                 micat = var2
                 minum = var1
+
+            if data_people[micat].nunique()>10:
+                micat=(pd.cut(data_people['edad'], bins=10))
+                
+
+
+
+
             visualizeME_and_describe_violinbox(data_people, micat, minum, palette= colors)
-        elif(data_people[var2].dtype == 'O' and data_people[var1].dtype == 'O') or (data_people[var1].dtype == 'O' and data_people[var2].dtype == 'O'):
+        elif(data_people[var2].dtype == 'O' and data_people[var1].dtype == 'O') :
             if data_people[var1].nunique() <= data_people[var1].nunique():
                 micat1 = var1
                 micat2 = var2
