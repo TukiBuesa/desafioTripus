@@ -53,7 +53,7 @@ def panel2(data_people):
     with col2:    
         grouped=st.selectbox('columna2',['sexo','ccaa','edad'])
     with col3:
-        grouped_bool=st.selectbox('columna3',['sexo'])
+        grouped_bool=st.selectbox('columna3',['sexo','dependiente'])
     graph_three_var(columna,grouped,grouped_bool,data_people=data_people)    
     st.write('hola')
 
