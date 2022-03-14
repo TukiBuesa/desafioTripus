@@ -46,7 +46,12 @@ def panel1():
     st.write('hola')
 
 
-
+def data_tripus_palette():
+    '''
+    Función que trae la paleta de colores específica elegida para utilizar el equipo de DATA en el Desafío de Tripulaciones GRUPO 2.
+    '''
+    colors = ['#0294AB', '#51BF83', '#002D52','#007D60', '#D76174', '#95B0B7', '#003EAD',  '#FC9039', '#56423E', '#FFA0B6', '#AE5000', '#F3EED9', '#E36F60', '#FFE086', '#323232', '#CBCCFF', '#786AB0']
+    return colors
 
 def visualizeME_and_describe_violinbox(dataframe, categ_var, numeric_var, palette= 'tab10', save= True):
     '''
@@ -116,12 +121,13 @@ def graph_one_var(variable,data_people):
     ### Return(1):
         * plot: displot si es numérica y countplot en caso de que sea categórica
     '''
-    fig=plt.figure(figsize=(205,20))
-    if data_people[variable].dtypes == 'int64':        
-        fig=sns.displot(data_people[variable], binwidth = 3, kde= True)
+    fig=plt.figure()
+    colors = data_tripus_palette()
+    if data_people[variable].dtypes == 'int64':
+        sns.displot(data_people[variable], binwidth = 3, kde= True, color=colors[0])
 
     else:
-        fig=sns.catplot(x = variable , data= data_people , kind= 'count')
+        sns.catplot(x = variable , data= data_people , kind= 'count', palette= colors)
     st.pyplot(fig)
     st.write('hey')
     
