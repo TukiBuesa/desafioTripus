@@ -148,7 +148,8 @@ def visualizeME_and_describe_violinbox(dataframe, categ_var, numeric_var, palett
     
 
     #plt.show()
-    st.table(table)
+    if ~(dataframe[categ_var].nunique()>10): 
+        st.table(table)
 
 def better_visualizeME_and_describe_violinbox(dataframe, categ_var, numeric_var, categ_var2= None, palette='tab10'):
     '''
