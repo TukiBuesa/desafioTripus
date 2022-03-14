@@ -15,7 +15,7 @@ def configuracion():
      page_title="Data Analysis",
      page_icon=":pizza:")
 
-def menu():
+def menu(data_people):
     #funcion principal de visualizacion del programa
     #es un select box, para cada elección el el selecbox hay una funcion panel asignada
     #cada panel es un conjunto de graficas distintas, como paginas de una presentación
@@ -24,9 +24,9 @@ def menu():
     #panel_pos2=st.button('groupby')
 
     if panel_pos=='0':
-        panel0()
+        panel0(data_people)
     elif panel_pos=='1':
-        panel1()
+        panel1(data_people)
 
 def panel0(data_people):
     columna=st.selectbox('columna',data_people.columns)
@@ -34,7 +34,7 @@ def panel0(data_people):
     
     st.write('hola')
 
-def panel1():
+def panel1(data_people):
     col1,col2=st.columns(2)
     with col1:
         columna=st.selectbox('columna',['sexo','ccaa','edad'])
@@ -203,7 +203,7 @@ def graph_two_var(var1, var2,data_people):
 
 data_people = import_my_bbdd()   
 configuracion()
-menu()  
+menu(data_people)  
 '''
 # Welcome to Streamlit!
 '''
