@@ -124,10 +124,10 @@ def graph_one_var(variable,data_people):
     fig=plt.figure()
     colors = data_tripus_palette()
     if data_people[variable].dtypes == 'int64':
-        sns.displot(data_people[variable], binwidth = 3, kde= True, color=colors[0])
+       fig= sns.displot(data_people[variable], binwidth = 3, kde= True, color=colors[0])
 
     else:
-        sns.catplot(x = variable , data= data_people , kind= 'count', palette= colors)
+       fig= sns.catplot(x = variable , data= data_people , kind= 'count', palette= colors)
     st.pyplot(fig)
     st.write('hey')
     
