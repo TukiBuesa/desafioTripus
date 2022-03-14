@@ -66,14 +66,15 @@ def visualizeME_and_describe_violinbox(dataframe, categ_var, numeric_var, palett
     '''
     # Generate ViolinBOX graph
     num_cat = len(list(dataframe[categ_var].unique()))
-    ax = plt.figure(figsize=(num_cat*1.5,10))
+    fig,ax=plt.subplots()
+    #fig= plt.figure(figsize=(num_cat*1.5,10))
     ax = sns.violinplot(x=categ_var, y=numeric_var, data=dataframe, palette= palette)
-    #ax = sns.boxplot(x=categ_var, y=numeric_var, data=dataframe,fliersize=0, color='white')
+    ax = sns.boxplot(x=categ_var, y=numeric_var, data=dataframe,fliersize=0, color='white')
     ax.set_xticklabels(ax.get_xticklabels(), rotation=40, ha='right')
     titulo= numeric_var.upper() + '_vs_' + categ_var.upper()
     plt.title(titulo, fontsize=15)
 
-    st.pyplot(ax)
+    st.pyplot(fig)
 
     # Save graph
     if save == True:
