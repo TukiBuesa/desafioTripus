@@ -7,8 +7,7 @@ from scipy.stats import iqr
 from IPython.display import display
 
 
-data_people = pd.read_csv('fake_data_model.csv')
-data_people.drop(columns=['Unnamed: 0'], inplace=True)
+
 
 
 def configuracion():
@@ -20,17 +19,17 @@ def menu():
     #funcion principal de visualizacion del programa
     #es un select box, para cada elección el el selecbox hay una funcion panel asignada
     #cada panel es un conjunto de graficas distintas, como paginas de una presentación
-    panel_pos=st.selectbox('Página',['0','1','2','3','4','5','6','7','8','9'])  
-    panel_pos1=st.button('individuales')
-    panel_pos2=st.button('groupby')
+    panel_pos=st.selectbox('Página',['0','1','2'])  
+    #panel_pos1=st.button('individuales')
+    #panel_pos2=st.button('groupby')
 
     if panel_pos=='0':
         panel0()
     elif panel_pos=='1':
         panel1()
 
-def panel0():
-    columna=st.selectbox('columna',['sexo','ccaa','edad'])
+def panel0(data_people):
+    columna=st.selectbox('columna',data_people.columns)
     graph_one_var(columna,data_people=data_people)
     
     st.write('hola')
@@ -42,8 +41,20 @@ def panel1():
     with col2:    
         grouped=st.selectbox('columna2',['sexo','ccaa','edad'])
 
-    graph_two_var(columna,grouped)    
+    graph_two_var(columna,grouped,data_people=data_people)    
     st.write('hola')
+
+
+
+def import_my_bbdd():
+    '''
+    Función que importa la BBDD de personas mayores de 55 años, generada por el grupo 2, 
+    a la cual le han sumado  datos fictios para poder obtener un volumen suficiente y así 
+    poder generar un recomendador de actividades para personas que vivan en co-livings.
+    '''
+    data_people = pd.read_csv('fake_data_model.csv')
+    data_people.drop(columns=['Unnamed: 0'], inplace=True)
+    return data_people
 
 
 def data_tripus_palette():
@@ -113,7 +124,7 @@ def visualizeME_and_describe_violinbox(dataframe, categ_var, numeric_var, palett
     
 
     #plt.show()
-    display(table)
+    st.write(table)
 
 
 
@@ -139,7 +150,7 @@ def graph_one_var(variable,data_people):
     
 
 
-def graph_two_var(var1, var2):
+def graph_two_var(var1, var2,data_people):
     '''
     ## Función que sirva para obtender graficas cruzando 2 y 3 variables.
     ### Parámetros(3):
@@ -148,46 +159,49 @@ def graph_two_var(var1, var2):
     '''
     colors = data_tripus_palette()
     fig=plt.figure()
-    if (data_people[var2].dtype == 'int64' or data_people[var1].dtype == 'int64'):
-        if data_people[var2].dtype == 'int64':
-            micat = var1
-            minum = var2
-        else:
-            micat = var2
-            minum = var1
-        visualizeME_and_describe_violinbox(data_people, micat, minum, palette= colors)
-    elif(data_people[var2].dtype == 'O' and data_people[var1].dtype == 'O') or (data_people[var1].dtype == 'O' and data_people[var2].dtype == 'O'):
-        if data_people[var1].nunique() <= data_people[var1].nunique():
-            micat1 = var1
-            micat2 = var2
-        else:
-            micat1 = var2
-            micat2 = var1
-        ax = sns.catplot(x= micat1, col= micat2, col_order=list(data_people[micat2].value_counts().index), col_wrap=3, data = data_people, kind="count", height=3, aspect=2, palette= colors)
-        titulo = micat1.upper() + ' VS. ' + micat2.upper()
-        plt.suptitle(titulo)
-        ax.fig.subplots_adjust(top=0.8)
-        ax.fig.suptitle(titulo)
-        ax.set_xticklabels(rotation=40, ha='right')
+    if var1==var2:
+        graph_one_var(var1,data_people)
+    else:    
+        if (data_people[var2].dtype == 'int64' or data_people[var1].dtype == 'int64'):
+            if data_people[var2].dtype == 'int64':
+                micat = var1
+                minum = var2
+            else:
+                micat = var2
+                minum = var1
+            visualizeME_and_describe_violinbox(data_people, micat, minum, palette= colors)
+        elif(data_people[var2].dtype == 'O' and data_people[var1].dtype == 'O') or (data_people[var1].dtype == 'O' and data_people[var2].dtype == 'O'):
+            if data_people[var1].nunique() <= data_people[var1].nunique():
+                micat1 = var1
+                micat2 = var2
+            else:
+                micat1 = var2
+                micat2 = var1
+            ax = sns.catplot(x= micat1, col= micat2, col_order=list(data_people[micat2].value_counts().index), col_wrap=3, data = data_people, kind="count", height=3, aspect=2, palette= colors)
+            titulo = micat1.upper() + ' VS. ' + micat2.upper()
+            plt.suptitle(titulo)
+            ax.fig.subplots_adjust(top=0.8)
+            ax.fig.suptitle(titulo)
+            ax.set_xticklabels(rotation=40, ha='right')
 
-    elif data_people[var2].dtype == 'bool' or data_people[var1].dtype == 'bool':
-        if data_people[var2].dtype == 'bool':
-            micat = var1
-            mibool = var2
-        else:
-            micat = var2
-            mibool = var1
-        ax = sns.countplot(x=micat, data= data_people, hue=mibool, palette=colors)
-        ax.tick_params(axis='x', rotation=40)
-        titulo = micat.upper() + ' VS ' + mibool.upper()
-        plt.title(titulo)
-        plt.legend(bbox_to_anchor=(1, 1), loc=2) 
-    st.pyplot(ax)    
+        elif data_people[var2].dtype == 'bool' or data_people[var1].dtype == 'bool':
+            if data_people[var2].dtype == 'bool':
+                micat = var1
+                mibool = var2
+            else:
+                micat = var2
+                mibool = var1
+            ax = sns.countplot(x=micat, data= data_people, hue=mibool, palette=colors)
+            ax.tick_params(axis='x', rotation=40)
+            titulo = micat.upper() + ' VS ' + mibool.upper()
+            plt.title(titulo)
+            plt.legend(bbox_to_anchor=(1, 1), loc=2) 
+        st.pyplot(ax)    
 
 
 
 
-    
+data_people = import_my_bbdd()   
 configuracion()
 menu()  
 '''
