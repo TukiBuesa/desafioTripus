@@ -49,14 +49,16 @@ def panel1(data_people):
 def panel2(data_people):
     col1,col2,col3=st.columns(3)
     types=data_people.dtypes
-    types=types!='bool'
+    types_cat = (types!='bool') and (types!='int64')
+    types_int = (types=='int64')
+    types_bool = (types!='bool')
     
     with col1:
-        columna=st.selectbox('columna',data_people.columns[types])
+        columna=st.selectbox('columna',data_people.columns[types_cat])
     with col2:    
-        grouped=st.selectbox('columna2',data_people.columns[types])
+        grouped=st.selectbox('columna2',data_people.columns[types_int])
     with col3:
-        grouped_bool=st.selectbox('columna3',data_people.columns[~types])
+        grouped_bool=st.selectbox('columna3',data_people.columns[~types_bool])
     graph_three_var(columna,grouped,grouped_bool,data_people=data_people)    
     st.write('hola')
 
