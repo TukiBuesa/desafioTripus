@@ -48,6 +48,9 @@ def panel1(data_people):
 
 def panel2(data_people):
     col1,col2,col3=st.columns(3)
+    types=data_people.dtypes
+    types=types!='bool'
+    st.write(types)
     with col1:
         columna=st.selectbox('columna',['sexo','ccaa','edad'])
     with col2:    
