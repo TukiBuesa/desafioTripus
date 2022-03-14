@@ -140,6 +140,7 @@ def graph_two_var(var1, var2):
         * var1: `str` variable de tipo 'int64', 'O' o 'bool'
         * var2: `str` variable de tipo 'int64', 'O' o 'bool'
     '''
+    colors = data_tripus_palette()
     fig=plt.figure()
     if (data_people[var2].dtype == 'int64' or data_people[var1].dtype == 'int64'):
         if data_people[var2].dtype == 'int64':
@@ -148,7 +149,7 @@ def graph_two_var(var1, var2):
         else:
             micat = var2
             minum = var1
-        visualizeME_and_describe_violinbox(data_people, micat, minum, palette= 'tab10')
+        visualizeME_and_describe_violinbox(data_people, micat, minum, palette= colors)
     elif(data_people[var2].dtype == 'O' and data_people[var1].dtype == 'O') or (data_people[var1].dtype == 'O' and data_people[var2].dtype == 'O'):
         if data_people[var1].nunique() <= data_people[var1].nunique():
             micat1 = var1
@@ -156,7 +157,7 @@ def graph_two_var(var1, var2):
         else:
             micat1 = var2
             micat2 = var1
-        ax = sns.catplot(x= micat1, col= micat2, col_order=list(data_people[micat2].value_counts().index), col_wrap=3, data = data_people, kind="count", height=3, aspect=2, palette= 'tab10')
+        ax = sns.catplot(x= micat1, col= micat2, col_order=list(data_people[micat2].value_counts().index), col_wrap=3, data = data_people, kind="count", height=3, aspect=2, palette= colors)
         titulo = micat1.upper() + ' VS. ' + micat2.upper()
         plt.suptitle(titulo)
         ax.fig.subplots_adjust(top=0.8)
@@ -170,7 +171,7 @@ def graph_two_var(var1, var2):
         else:
             micat = var2
             mibool = var1
-        ax = sns.countplot(x=micat, data= data_people, hue=mibool, palette='tab10')
+        ax = sns.countplot(x=micat, data= data_people, hue=mibool, palette=colors)
         ax.tick_params(axis='x', rotation=40)
         titulo = micat.upper() + ' VS ' + mibool.upper()
         plt.title(titulo)
