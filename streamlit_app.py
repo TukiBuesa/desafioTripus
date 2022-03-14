@@ -49,7 +49,7 @@ def panel1(data_people):
 def panel2(data_people):
     col1,col2,col3=st.columns(3)
     types=data_people.dtypes
-    types_cat = (types!='bool') and (types!='int64')
+    types_cat = (types!='bool') & (types!='int64')
     types_int = (types=='int64')
     types_bool = (types!='bool')
     
