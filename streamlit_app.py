@@ -27,6 +27,8 @@ def menu(data_people):
         panel0(data_people)
     elif panel_pos=='1':
         panel1(data_people)
+    elif panel_pos=='2':
+        panel2(data_people)    
 
 def panel0(data_people):
     columna=st.selectbox('columna',data_people.columns)
