@@ -53,7 +53,7 @@ def data_tripus_palette():
     colors = ['#0294AB', '#51BF83', '#002D52','#007D60', '#D76174', '#95B0B7', '#003EAD',  '#FC9039', '#56423E', '#FFA0B6', '#AE5000', '#F3EED9', '#E36F60', '#FFE086', '#323232', '#CBCCFF', '#786AB0']
     return colors
 
-def visualizeME_and_describe_violinbox(dataframe, categ_var, numeric_var, palette= 'tab10', save= True):
+def visualizeME_and_describe_violinbox(dataframe, categ_var, numeric_var, palette= 'tab10', save= False):
     '''
     Function that allows to obtain a more complete graph by merging boxplot and violinplot together with a table of descriptive metrics
     It is high recommendable! to use this type of graph for a categoric variable with 20 unique values maximum.
@@ -72,6 +72,7 @@ def visualizeME_and_describe_violinbox(dataframe, categ_var, numeric_var, palett
     ax.set_xticklabels(ax.get_xticklabels(), rotation=40, ha='right');
     titulo= numeric_var.upper() + '_vs_' + categ_var.upper()
     plt.title(titulo, fontsize=15);
+    st.pyplot(ax)
 
     # Save graph
     if save == True:
@@ -128,6 +129,7 @@ def graph_one_var(variable,data_people):
 
     else:
        fig= sns.catplot(x = variable , data= data_people , kind= 'count', palette= colors)
+       fig.set_xticklabels(rotation=40, ha='right')
     st.pyplot(fig)
     st.write('hey')
     
