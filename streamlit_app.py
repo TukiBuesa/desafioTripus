@@ -212,7 +212,7 @@ def better_visualizeME_and_describe_violinbox(dataframe, categ_var, numeric_var,
     table = table.set_index('Metrics')
     
     #plt.show()
-    st.dataframe(table)
+    st.table(table)
 
 
 def graph_one_var(variable,data_people):
@@ -317,6 +317,3 @@ def graph_three_var(var1, var2, var3,data_people):
 data_people = import_my_bbdd()   
 configuracion()
 menu(data_people)  
-'''
-# Welcome to Streamlit!
-'''
