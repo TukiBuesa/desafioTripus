@@ -96,8 +96,15 @@ def visualizeME_and_describe_violinbox(dataframe, categ_var, numeric_var, palett
     #num_cat = len(list(dataframe[categ_var].unique()))
     fig,ax=plt.subplots()
     #fig= plt.figure(figsize=(num_cat*1.5,10))
-    ax = sns.violinplot(x=categ_var, y=numeric_var, data=dataframe, palette= palette)
-    ax = sns.boxplot(x=categ_var, y=numeric_var, data=dataframe,fliersize=0, color='white')
+
+    if dataframe[categ_var].nunique()>10:        
+        ax = sns.violinplot(x=(pd.cut(dataframe[categ_var], bins=10)), y=numeric_var, data=dataframe, palette= palette)
+        ax = sns.boxplot(x=(pd.cut(dataframe[categ_var], bins=10)), y=numeric_var, data=dataframe,fliersize=0, color='white')
+    else:
+        ax = sns.violinplot(x=categ_var, y=numeric_var, data=dataframe, palette= palette)
+        ax = sns.boxplot(x=categ_var, y=numeric_var, data=dataframe,fliersize=0, color='white')
+
+    
     ax.set_xticklabels(ax.get_xticklabels(), rotation=40, ha='right')
     titulo= numeric_var.upper() + '_vs_' + categ_var.upper()
     plt.title(titulo, fontsize=15)
@@ -260,13 +267,7 @@ def graph_two_var(var1, var2,data_people):
                 micat = var2
                 minum = var1
 
-            if data_people[micat].nunique()>10:
-                micat=(pd.cut(data_people['edad'], bins=10))
-                
-
-
-
-
+              
             visualizeME_and_describe_violinbox(data_people, micat, minum, palette= colors)
         elif(data_people[var2].dtype == 'O' and data_people[var1].dtype == 'O') :
             if data_people[var1].nunique() <= data_people[var1].nunique():
