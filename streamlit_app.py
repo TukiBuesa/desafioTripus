@@ -66,14 +66,13 @@ def visualizeME_and_describe_violinbox(dataframe, categ_var, numeric_var, palett
     '''
     # Generate ViolinBOX graph
     num_cat = len(list(dataframe[categ_var].unique()))
-    plt.figure(figsize=(num_cat*1.5,10))
+    ax=plt.figure(figsize=(num_cat*1.5,10))
     sns.violinplot(x=categ_var, y=numeric_var, data=dataframe, palette= palette)
     ax = sns.boxplot(x=categ_var, y=numeric_var, data=dataframe,fliersize=0, color='white')
     ax.set_xticklabels(ax.get_xticklabels(), rotation=40, ha='right');
     titulo= numeric_var.upper() + '_vs_' + categ_var.upper()
     plt.title(titulo, fontsize=15);
-    st.pyplot(ax)
-
+    
     # Save graph
     if save == True:
         graph = 'visualizeME_Graphic_violinbox_' + titulo.lower() + '.png'
@@ -107,8 +106,10 @@ def visualizeME_and_describe_violinbox(dataframe, categ_var, numeric_var, palett
     if save == True:
         name = 'visualizeME_table_violinbox_' + titulo.lower() + '.csv'
         table.to_csv(name, header=True)
-    
-    plt.show()
+
+    st.pyplot(ax)
+
+    #plt.show()
     display(table)
 
 
