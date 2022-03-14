@@ -50,7 +50,7 @@ def panel2(data_people):
     col1,col2,col3=st.columns(3)
     types=data_people.dtypes
     types=types!='bool'
-    st.write(types)
+    
     with col1:
         columna=st.selectbox('columna',data_people.columns[types])
     with col2:    
@@ -296,18 +296,20 @@ def graph_three_var(var1, var2, var3,data_people):
         * var2: `str` variable de tipo 'int64' o 'O'
         * var3: `str`  variable de tipo 'bool'
     '''
-    
-    colors = data_tripus_palette()
-    if data_people[var3].dtype == 'bool' and ((data_people[var2].dtype == 'int64' and data_people[var1].dtype == 'O') or (data_people[var1].dtype == 'int64' and data_people[var2].dtype == 'O')): 
-        if data_people[var2].dtype == 'int64':
-            micat = var1
-            minum = var2
-        else:
-            micat = var2
-            minum = var1
-        better_visualizeME_and_describe_violinbox(data_people, micat, minum, var3, palette= colors)
+    if var1==var2:
+        graph_two_var(var1=var1,var2=var3,data_people=data_people)
     else:
-        st.write('Por favor, incluye una variable numérica, una categórica y una booleana')
+        colors = data_tripus_palette()
+        if data_people[var3].dtype == 'bool' and ((data_people[var2].dtype == 'int64' and data_people[var1].dtype == 'O') or (data_people[var1].dtype == 'int64' and data_people[var2].dtype == 'O')): 
+            if data_people[var2].dtype == 'int64':
+                micat = var1
+                minum = var2
+            else:
+                micat = var2
+                minum = var1
+            better_visualizeME_and_describe_violinbox(data_people, micat, minum, var3, palette= colors)
+        else:
+            st.write('Por favor, incluye una variable numérica, una categórica y una booleana')
 
 
 data_people = import_my_bbdd()   
