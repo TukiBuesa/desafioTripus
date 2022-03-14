@@ -221,7 +221,11 @@ def graph_one_var(variable,data_people):
     fig=plt.figure()
     colors = data_tripus_palette()
     if data_people[variable].dtypes == 'int64':
-       fig= sns.displot(data_people[variable], binwidth = 3, kde= True, color=colors[0])
+
+        if (data_people[variable].max() - data_people[variable].min())>10 :
+            fig= sns.displot(data_people[variable], binwidth = 3, kde= True, color=colors[0])
+        else:
+            fig= sns.displot(data_people[variable], binwidth = 1, kde= True, color=colors[0])
 
     else:
        fig= sns.catplot(x = variable , data= data_people , kind= 'count', palette= colors)
