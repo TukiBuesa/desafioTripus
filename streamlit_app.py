@@ -44,6 +44,16 @@ def panel1(data_people):
     graph_two_var(columna,grouped,data_people=data_people)    
     st.write('hola')
 
+def panel2(data_people):
+    col1,col2,col3=st.columns(3)
+    with col1:
+        columna=st.selectbox('columna',['sexo','ccaa','edad'])
+    with col2:    
+        grouped=st.selectbox('columna2',['sexo','ccaa','edad'])
+    with col3:
+        grouped_bool=st.selectbox('columna3',['sexo'])
+    graph_three_var(columna,grouped,grouped_bool,data_people=data_people)    
+    st.write('hola')
 
 
 def import_my_bbdd():
@@ -139,7 +149,7 @@ def better_visualizeME_and_describe_violinbox(dataframe, categ_var, numeric_var,
     '''
     # Generate ViolinBOX graph
     fig,ax=plt.subplots()
-    sns.violinplot(x=categ_var, y=numeric_var, data=dataframe, hue = categ_var2, split=True)
+    ax = sns.violinplot(x=categ_var, y=numeric_var, data=dataframe, hue = categ_var2, split=True)
     ax = sns.boxplot(x=categ_var, y=numeric_var, data=dataframe, hue = categ_var2, fliersize=0, color='white')
     ax.set_xticklabels(ax.get_xticklabels(), rotation=40, ha='right')
     handles, labels = ax.get_legend_handles_labels()
@@ -268,7 +278,26 @@ def graph_two_var(var1, var2,data_people):
             plt.legend(bbox_to_anchor=(1, 1), loc=2) 
             st.pyplot(ax)    
 
-
+def graph_three_var(var1, var2, var3,data_people):
+    '''
+    # Función que sirva para obtender grafica cruzando 3 variables.
+    ## Parámetros(3):
+        * var1: `str` variable de tipo 'int64' o 'O'
+        * var2: `str` variable de tipo 'int64' o 'O'
+        * var3: `str`  variable de tipo 'bool'
+    '''
+    
+    colors = data_tripus_palette()
+    if data_people[var3].dtype == 'bool' and ((data_people[var2].dtype == 'int64' and data_people[var1].dtype == 'O') or (data_people[var1].dtype == 'int64' and data_people[var2].dtype == 'O')): 
+        if data_people[var2].dtype == 'int64':
+            micat = var1
+            minum = var2
+        else:
+            micat = var2
+            minum = var1
+        better_visualizeME_and_describe_violinbox(data_people, micat, minum, var3, palette= colors)
+    else:
+        st.write('Por favor, incluye una variable numérica, una categórica y una booleana')
 
 
 data_people = import_my_bbdd()   
