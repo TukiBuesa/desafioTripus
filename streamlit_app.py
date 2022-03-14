@@ -42,7 +42,7 @@ def panel1(data_people):
         grouped=st.selectbox('columna2',['sexo','ccaa','edad'])
 
     graph_two_var(columna,grouped,data_people=data_people)    
-    st.dataframe('hola')
+    st.write('hola')
 
 
 
