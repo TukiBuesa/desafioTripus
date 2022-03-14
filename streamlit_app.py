@@ -19,7 +19,8 @@ def menu(data_people):
     #funcion principal de visualizacion del programa
     #es un select box, para cada elección el el selecbox hay una funcion panel asignada
     #cada panel es un conjunto de graficas distintas, como paginas de una presentación
-    panel_pos=st.selectbox('Página',['0','1','2'])  
+    #panel_pos=st.selectbox('Página',['0','1','2'])  
+    panel_pos=st.sidebar.selectbox('Página',['0','1','2']) 
     #panel_pos1=st.button('individuales')
     #panel_pos2=st.button('groupby')
 
