@@ -244,7 +244,6 @@ def graph_one_var(variable,data_people):
        fig= sns.catplot(x = variable , data= data_people , kind= 'count', palette= colors)
        fig.set_xticklabels(rotation=40, ha='right')
     st.pyplot(fig)
-    st.write('hey')
     
 
 
