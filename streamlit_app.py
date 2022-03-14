@@ -73,7 +73,7 @@ def visualizeME_and_describe_violinbox(dataframe, categ_var, numeric_var, palett
     titulo= numeric_var.upper() + '_vs_' + categ_var.upper()
     plt.title(titulo, fontsize=15)
 
-    st.pyplot(fig)
+    st.pyplot(ax)
 
     # Save graph
     if save == True:
