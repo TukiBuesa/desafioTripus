@@ -39,9 +39,9 @@ def panel0(data_people):
 def panel1(data_people):
     col1,col2=st.columns(2)
     with col1:
-        columna=st.selectbox('columna',['sexo','ccaa','edad'])
+        columna=st.selectbox('columna',data_people.columns)
     with col2:    
-        grouped=st.selectbox('columna2',['sexo','ccaa','edad'])
+        grouped=st.selectbox('columna2',data_people.columns)
 
     graph_two_var(columna,grouped,data_people=data_people)    
     st.write('hola')
@@ -225,7 +225,7 @@ def graph_one_var(variable,data_people):
         if (data_people[variable].max() - data_people[variable].min())>10 :
             fig= sns.displot(data_people[variable], binwidth = 3, kde= True, color=colors[0])
         else:
-            fig= sns.displot(data_people[variable], discrete=True, kde= True, color=colors[0])
+            fig= sns.displot(data_people[variable], discrete=True, color=colors[0])
 
     else:
        fig= sns.catplot(x = variable , data= data_people , kind= 'count', palette= colors)
