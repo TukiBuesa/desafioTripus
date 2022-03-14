@@ -277,9 +277,9 @@ def graph_two_var(var1, var2,data_people):
             else:
                 micat = var2
                 mibool = var1
-            fig=plt.figure()    
-            fig = sns.countplot(x=micat, data= data_people, hue=mibool, palette=colors)
-            fig.tick_params(axis='x', rotation=40)
+            fig,ax=plt.subplots()  
+            ax = sns.countplot(x=micat, data= data_people, hue=mibool, palette=colors)
+            ax.tick_params(axis='x', rotation=40)
             titulo = micat.upper() + ' VS ' + mibool.upper()
             plt.title(titulo)
             plt.legend(bbox_to_anchor=(1, 1), loc=2) 
