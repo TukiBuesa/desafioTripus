@@ -277,12 +277,13 @@ def graph_two_var(var1, var2,data_people):
             else:
                 micat = var2
                 mibool = var1
-            ax = sns.countplot(x=micat, data= data_people, hue=mibool, palette=colors)
-            ax.tick_params(axis='x', rotation=40)
+            fig=plt.figure()    
+            fig = sns.countplot(x=micat, data= data_people, hue=mibool, palette=colors)
+            fig.tick_params(axis='x', rotation=40)
             titulo = micat.upper() + ' VS ' + mibool.upper()
             plt.title(titulo)
             plt.legend(bbox_to_anchor=(1, 1), loc=2) 
-            st.pyplot(ax)    
+            st.pyplot(fig)    
 
 def graph_three_var(var1, var2, var3,data_people):
     '''
