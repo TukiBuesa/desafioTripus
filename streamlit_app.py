@@ -97,7 +97,7 @@ def visualizeME_and_describe_violinbox(dataframe, categ_var, numeric_var, palett
     fig,ax=plt.subplots()
     #fig= plt.figure(figsize=(num_cat*1.5,10))
 
-    if dataframe[categ_var].nunique()>10 and dataframe[categ_var].dtype=='int64' :        
+    if dataframe[categ_var].nunique()>10 and dataframe[categ_var].dtype=='int64' :         
         ax = sns.violinplot(x=(pd.cut(dataframe[categ_var], bins=10)), y=numeric_var, data=dataframe, palette= palette)
         ax = sns.boxplot(x=(pd.cut(dataframe[categ_var], bins=10)), y=numeric_var, data=dataframe,fliersize=0, color='white')
     else:
