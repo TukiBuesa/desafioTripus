@@ -34,7 +34,7 @@ def panel0(data_people):
     columna=st.selectbox('columna',data_people.columns)
     graph_one_var(columna,data_people=data_people)
     
-    st.write('hola')
+    
 
 def panel1(data_people):
     col1,col2=st.columns(2)
@@ -44,7 +44,7 @@ def panel1(data_people):
         grouped=st.selectbox('columna2',data_people.columns)
 
     graph_two_var(columna,grouped,data_people=data_people)    
-    st.write('hola')
+    
 
 def panel2(data_people):
     col1,col2,col3=st.columns(3)
@@ -60,7 +60,7 @@ def panel2(data_people):
     with col3:
         grouped_bool=st.selectbox('columna3',data_people.columns[~types_bool])
     graph_three_var(columna,grouped,grouped_bool,data_people=data_people)    
-    st.write('hola')
+    
 
 
 def import_my_bbdd():
@@ -141,7 +141,7 @@ def visualizeME_and_describe_violinbox(dataframe, categ_var, numeric_var, palett
     
 
     #plt.show()
-    st.dataframe(table)
+    st.table(table)
 
 def better_visualizeME_and_describe_violinbox(dataframe, categ_var, numeric_var, categ_var2= None, palette='tab10'):
     '''
