@@ -3,7 +3,7 @@
 primaryColor = '#7792E3'
 
 # Background color for the main content area
-backgroundColor = '#323232'
+backgroundColor = '#002D52'
 
 # Background color for sidebar and most interactive widgets
 secondaryBackgroundColor = '#51BF83'
