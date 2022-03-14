@@ -93,7 +93,7 @@ def visualizeME_and_describe_violinbox(dataframe, categ_var, numeric_var, palett
         * save:  `bool` by default True, the function save the plot and table generated
     '''
     # Generate ViolinBOX graph
-    num_cat = len(list(dataframe[categ_var].unique()))
+    #num_cat = len(list(dataframe[categ_var].unique()))
     fig,ax=plt.subplots()
     #fig= plt.figure(figsize=(num_cat*1.5,10))
     ax = sns.violinplot(x=categ_var, y=numeric_var, data=dataframe, palette= palette)
