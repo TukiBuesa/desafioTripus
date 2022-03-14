@@ -52,11 +52,11 @@ def panel2(data_people):
     types=types!='bool'
     st.write(types)
     with col1:
-        columna=st.selectbox('columna',['sexo','ccaa','edad'])
+        columna=st.selectbox('columna',data_people.columns[types])
     with col2:    
-        grouped=st.selectbox('columna2',['sexo','ccaa','edad'])
+        grouped=st.selectbox('columna2',data_people.columns[types])
     with col3:
-        grouped_bool=st.selectbox('columna3',['sexo','dependiente'])
+        grouped_bool=st.selectbox('columna3',data_people.columns[~types])
     graph_three_var(columna,grouped,grouped_bool,data_people=data_people)    
     st.write('hola')
 
