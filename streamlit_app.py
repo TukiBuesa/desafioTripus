@@ -166,7 +166,7 @@ def better_visualizeME_and_describe_violinbox(dataframe, categ_var, numeric_var,
     '''
     # Generate ViolinBOX graph
     fig,ax=plt.subplots()
-    ax = sns.violinplot(x=categ_var, y=numeric_var, data=dataframe, hue = categ_var2, split=True,palette=palette)
+    ax = sns.violinplot(x=categ_var, y=numeric_var, data=dataframe, hue = categ_var2, split=True)
     ax = sns.boxplot(x=categ_var, y=numeric_var, data=dataframe, hue = categ_var2, fliersize=0, color='white')
     ax.set_xticklabels(ax.get_xticklabels(), rotation=40, ha='right')
     handles, labels = ax.get_legend_handles_labels()
