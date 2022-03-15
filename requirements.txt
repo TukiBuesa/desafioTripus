@@ -3,5 +3,4 @@ streamlit
 numpy
 seaborn
 scipy
-IPython
-matplotlib
+matplotlib.pyplot
